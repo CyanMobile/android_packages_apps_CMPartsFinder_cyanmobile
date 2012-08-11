@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">CyanMobile Finder</string>
+    <string name="start_service">Start Service</string>
+    <string name="stop_service">Stop Service</string>
+    <string name="old_password">Old Password</string>
+    <string name="new_password">New Password</string>   
+    <string name="set_password">OK</string> 
+    <string name="old_password_wrong">Incorrect Old Password</string>
+    <string name="empty_password">Password cannot be empty</string>
+    <string name="set_password_success">Set Password Success</string>
+</resources>
