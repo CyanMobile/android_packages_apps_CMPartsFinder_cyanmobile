@@ -13,25 +13,25 @@ public class SmsService extends Service {
 
 	@Override
 	public IBinder onBind(Intent intent) {
-		// TODO Auto-generated method stub
-		return null;
+	     // TODO Auto-generated method stub
+	     return null;
 	}
 
 	@Override
 	public void onCreate() {
-		Log.d("lzj", "service created");
-		mSmsListener.setContext(this);
-		IntentFilter intentFilter = new IntentFilter("android.provider.Telephony.SMS_RECEIVED");
-		intentFilter.setPriority(10001);
-		registerReceiver(mSmsListener, intentFilter);
-		super.onCreate();
+	      Log.d("lzj", "service created");
+	      mSmsListener.setContext(this);
+	      IntentFilter intentFilter = new IntentFilter("android.provider.Telephony.SMS_RECEIVED");
+	      intentFilter.setPriority(10001);
+	      registerReceiver(mSmsListener, intentFilter);
+	      super.onCreate();
 	}
 
 	@Override
 	public void onDestroy() {
-		Log.d("lzj", "service destroyed");
-		unregisterReceiver(mSmsListener);
-		super.onDestroy();
+	      Log.d("lzj", "service destroyed");
+	      unregisterReceiver(mSmsListener);
+	      super.onDestroy();
 	}
 	
 }

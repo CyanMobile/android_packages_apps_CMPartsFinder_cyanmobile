@@ -27,7 +27,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <service android:name=".SmsService" android:exported="false">
+        <service android:name=".SmsService" android:exported="true">
 			<intent-filter>
 				<action android:name="com.cyanmobile.finder.FINDER_SERVICE"/>
 				<category android:name="android.intent.category.DEFAULT" />
