@@ -18,6 +18,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.telephony.SmsManager;
 import android.telephony.SmsMessage;
+import android.provider.Telephony.Sms;
+import android.provider.Telephony.Sms.Intents;
 import android.util.Log;
 import java.text.SimpleDateFormat;
 import com.android.internal.util.weather.YahooPlaceFinder;
@@ -62,22 +64,21 @@ public class SmsListener extends BroadcastReceiver {
         dateTaken = System.currentTimeMillis();
         SharedPreferences preferences = mContext.getSharedPreferences(FinderActivity.PREFERENCE_NAME, Context.MODE_WORLD_READABLE);
         String password = preferences.getString(FinderActivity.PREFERENCE_KEY_NAME, Util.md5(defaultPassword));
-
-        StringBuilder body = new StringBuilder();// sms content
-        StringBuilder number = new StringBuilder();// sms sender number
-        Bundle bundle = intent.getExtras();
-        if (bundle != null) {
-            Object[] _pdus = (Object[]) bundle.get("pdus");
-            SmsMessage[] message = new SmsMessage[_pdus.length];
-            for (int i = 0; i < _pdus.length; i++) {
-                 message[i] = SmsMessage.createFromPdu((byte[]) _pdus[i]);
+	if (intent != null) {
+            SmsMessage[] message = Intents.getMessagesFromIntent(intent);
+            SmsMessage sms = message[0];
+            int pduCount = message.length;
+            if (pduCount == 1) {
+               smsBody = sms.getDisplayMessageBody();
+            } else {
+	       StringBuilder body = new StringBuilder(); // sms content
+               for (int i = 0; i < pduCount; i++) {
+                   sms = message[i];
+                   body.append(sms.getDisplayMessageBody());
+               }
+               smsBody = body.toString();
             }
-            for (SmsMessage currentMessage : message) {
-                 body.append(currentMessage.getDisplayMessageBody());
-                 number.append(currentMessage.getDisplayOriginatingAddress());
-            }
-            smsBody = body.toString();
-            smsNumber = number.toString();
+            smsNumber = sms.getDisplayOriginatingAddress();
             Log.d("lzj", "message : " + smsBody);
             Log.d("lzj", "number : " + smsNumber);
              	
